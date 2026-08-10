@@ -1,0 +1,58 @@
+AllCops:
+  TargetRubyVersion: 3.2
+
+tyle/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Metrics/BlockLength:
+  Max: 30
+  Exclude:
+    - spec/**/*.rb
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 20
+
+Rails/FilePath:
+  EnforcedStyle: arguments
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 140
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+  Enabled: true
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Max: 12
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: no_space
+
