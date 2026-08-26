@@ -1,22 +1,23 @@
 # frozen_string_literal: true
 
-require_relative "lib/active_jobject/version"
+require_relative 'lib/active_jobject/version'
 
 Gem::Specification.new do |spec|
-  spec.name = "active_jobject"
+  spec.name = 'active_jobject'
   spec.version = ActiveJobject::VERSION
-  spec.authors = ["Guilherme Theodoro"]
-  spec.email = ["gtheodoro@rescocompany.com"]
+  spec.authors = ['Guilherme Theodoro']
+  spec.email = ['gtheodoro@rescocompany.com']
 
-  spec.summary = "HTTP Engine Object Wrapper"
-  spec.description = "This gem encapsulates and allows for multi-engine or multi-gem HTTP requests that requests and respond in JSON."
-  spec.homepage = "https://rescocompany.com"
-  spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.2.0"
+  spec.summary = 'HTTP Engine Object Wrapper'
+  spec.description = 'This gem encapsulates and allows for multi-engine or multi-gem HTTP requests that requests and respond in JSON.'
+  spec.homepage = 'https://rescocompany.com'
+  spec.license = 'MIT'
+  spec.required_ruby_version = '>= 3.2.0'
 
-  spec.metadata["allowed_push_host"] = "https://rubygems.org"
-  spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/RESCO-Company/active_jobject"
+  spec.metadata['allowed_push_host'] = 'https://rubygems.org'
+  spec.metadata['homepage_uri'] = spec.homepage
+  spec.metadata['source_code_uri'] = 'https://github.com/RESCO-Company/active_jobject'
+  spec.metadata['rubygems_mfa_required'] = 'true'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -27,9 +28,9 @@ Gem::Specification.new do |spec|
         f.start_with?(*%w[bin/ Gemfile .gitignore .rspec spec/ .github/ .rubocop.yml])
     end
   end
-  spec.bindir = "exe"
+  spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

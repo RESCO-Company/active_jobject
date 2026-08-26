@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe ActiveJobject::Request::Engine::NetHttp do
   subject(:klass) { described_class }
 
-  describe "#get" do
+  describe '#get' do
     context 'when the request succeeds' do
       context 'without default headers' do
         let(:dummy_klass) do
           described_klass = klass
 
           Class.new(ActiveJobject::Base) do
-            self.site = "http://testing-test-tester.test/api/v1/users"
+            self.site = 'http://testing-test-tester.test/api/v1/users'
             self.engine = described_klass
           end
         end
@@ -18,7 +20,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
         let(:dummy_instance) { dummy_klass.new }
 
         before do
-          stub_request(:get, "http://testing-test-tester.test/api/v1/users")
+          stub_request(:get, 'http://testing-test-tester.test/api/v1/users')
             .to_return(status: 200, body: JSON.generate({ id: 1, name: 'John Ruby', clients: [{ id: 1, name: 'Alpha' }, { id: 2, name: 'Beta' }, { id: 3, name: 'Sigma' }] }))
         end
 
@@ -46,7 +48,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
           described_klass = klass
 
           Class.new(ActiveJobject::Base) do
-            self.site = "http://testing-test-tester.test/api/v1/users"
+            self.site = 'http://testing-test-tester.test/api/v1/users'
             self.engine = described_klass
 
             self.default_headers = { 'Authorization' => 'Bearer TEST_TOKEN' }
@@ -56,7 +58,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
         let(:dummy_instance) { dummy_klass.new }
 
         before do
-          stub_request(:get, "http://testing-test-tester.test/api/v1/users")
+          stub_request(:get, 'http://testing-test-tester.test/api/v1/users')
             .with(headers: { 'Authorization' => 'Bearer TEST_TOKEN' })
             .to_return(status: 200, body: JSON.generate({ id: 1, name: 'John Ruby', clients: [{ id: 1, name: 'Alpha' }, { id: 2, name: 'Beta' }, { id: 3, name: 'Sigma' }] }))
         end
@@ -86,7 +88,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
         described_klass = klass
 
         Class.new(ActiveJobject::Base) do
-          self.site = "http://testing-test-tester.test/api/v1/users"
+          self.site = 'http://testing-test-tester.test/api/v1/users'
           self.engine = described_klass
         end
       end
@@ -95,7 +97,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
 
       context 'status 401' do
         before do
-          stub_request(:get, "http://testing-test-tester.test/api/v1/users")
+          stub_request(:get, 'http://testing-test-tester.test/api/v1/users')
             .to_return(status: 401, body: nil)
         end
 
@@ -106,7 +108,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
 
       context 'status 403' do
         before do
-          stub_request(:get, "http://testing-test-tester.test/api/v1/users")
+          stub_request(:get, 'http://testing-test-tester.test/api/v1/users')
             .to_return(status: 403, body: nil)
         end
 
@@ -117,7 +119,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
 
       context 'status 404' do
         before do
-          stub_request(:get, "http://testing-test-tester.test/api/v1/users")
+          stub_request(:get, 'http://testing-test-tester.test/api/v1/users')
             .to_return(status: 404, body: nil)
         end
 
@@ -128,7 +130,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
 
       context 'status 500' do
         before do
-          stub_request(:get, "http://testing-test-tester.test/api/v1/users")
+          stub_request(:get, 'http://testing-test-tester.test/api/v1/users')
             .to_return(status: 500, body: nil)
         end
 
@@ -139,8 +141,8 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
 
       context 'status 42069 (non-standard)' do
         before do
-          stub_request(:get, "http://testing-test-tester.test/api/v1/users")
-            .to_return(status: 42069, body: nil)
+          stub_request(:get, 'http://testing-test-tester.test/api/v1/users')
+            .to_return(status: 42_069, body: nil)
         end
 
         it 'raises ActiveJobject::Request::Error' do
@@ -150,14 +152,14 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
     end
   end
 
-  describe "#post" do
-    context "when the request succeeds" do
+  describe '#post' do
+    context 'when the request succeeds' do
       context 'without default headers' do
         let(:dummy_klass) do
           described_klass = klass
 
           Class.new(ActiveJobject::Base) do
-            self.site = "http://utest.hello/api/v1/users"
+            self.site = 'http://utest.hello/api/v1/users'
             self.engine = described_klass
           end
         end
@@ -167,7 +169,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
         let(:body) { { name: 'Alpha Wolf', location: 'Unknown', age: 0 } }
 
         before do
-          stub_request(:post, "http://utest.hello/api/v1/users")
+          stub_request(:post, 'http://utest.hello/api/v1/users')
             .with(body: JSON.generate(body))
             .to_return(status: 200, body: JSON.generate({ id: 2, name: 'Alpha Wolf', location: 'Unknown', age: 0, created_at: '2026-08-19T14:19:04-05:00' }))
         end
@@ -199,7 +201,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
           described_klass = klass
 
           Class.new(ActiveJobject::Base) do
-            self.site = "http://utest.hello/api/v1/users"
+            self.site = 'http://utest.hello/api/v1/users'
             self.engine = described_klass
 
             self.default_headers = { 'Authorization' => 'Bearer TEST_TOKEN' }
@@ -211,7 +213,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
         let(:body) { { name: 'Alpha Wolf', location: 'Unknown', age: 0 } }
 
         before do
-          stub_request(:post, "http://utest.hello/api/v1/users")
+          stub_request(:post, 'http://utest.hello/api/v1/users')
             .with(headers: { 'Authorization' => 'Bearer TEST_TOKEN' }, body: JSON.generate(body))
             .to_return(status: 200, body: JSON.generate({ id: 2, name: 'Alpha Wolf', location: 'Unknown', age: 0, created_at: '2026-08-19T14:19:04-05:00' }))
         end
@@ -244,7 +246,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
         described_klass = klass
 
         Class.new(ActiveJobject::Base) do
-          self.site = "http://utest.hello/api/v1/users"
+          self.site = 'http://utest.hello/api/v1/users'
           self.engine = described_klass
         end
       end
@@ -255,7 +257,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
 
       context 'status 401' do
         before do
-          stub_request(:get, "http://utest.hello/api/v1/users")
+          stub_request(:get, 'http://utest.hello/api/v1/users')
             .to_return(status: 401, body: nil)
         end
 
@@ -266,7 +268,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
 
       context 'status 403' do
         before do
-          stub_request(:get, "http://utest.hello/api/v1/users")
+          stub_request(:get, 'http://utest.hello/api/v1/users')
             .to_return(status: 403, body: nil)
         end
 
@@ -277,7 +279,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
 
       context 'status 404' do
         before do
-          stub_request(:get, "http://utest.hello/api/v1/users")
+          stub_request(:get, 'http://utest.hello/api/v1/users')
             .to_return(status: 404, body: nil)
         end
 
@@ -288,7 +290,7 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
 
       context 'status 500' do
         before do
-          stub_request(:get, "http://utest.hello/api/v1/users")
+          stub_request(:get, 'http://utest.hello/api/v1/users')
             .to_return(status: 500, body: nil)
         end
 
@@ -299,8 +301,8 @@ RSpec.describe ActiveJobject::Request::Engine::NetHttp do
 
       context 'status 42069 (non-standard)' do
         before do
-          stub_request(:get, "http://utest.hello/api/v1/users")
-            .to_return(status: 42069, body: nil)
+          stub_request(:get, 'http://utest.hello/api/v1/users')
+            .to_return(status: 42_069, body: nil)
         end
 
         it 'raises ActiveJobject::Request::Error' do

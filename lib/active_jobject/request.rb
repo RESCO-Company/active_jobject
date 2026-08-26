@@ -1,58 +1,60 @@
-module ActiveJobject::Request
-  include ActiveJobject::Parser
+# frozen_string_literal: true
 
-  def self.included(base)
-    base.extend(ClassMethods)
-  end
+module ActiveJobject
+  module Request
+    include ActiveJobject::Parser
 
-  module ClassMethods
-    def engine=(engine)
-      @engine = engine
+    def self.included(base)
+      base.extend(ClassMethods)
     end
 
-    def engine
-      @engine ||= ActiveJobject::Request::Engine::NetHttp
+    module ClassMethods
+      def engine=(engine)
+        @engine = engine
+      end
+
+      def engine
+        @engine ||= ActiveJobject::Request::Engine::NetHttp
+      end
+
+      def default_headers=(headers)
+        @default_headers = headers
+      end
+
+      def default_headers
+        @default_headers ||= {}
+      end
     end
 
-    def default_headers=(headers)
-      @default_headers = headers
+    def get(headers: {}, params: {})
+      merged_headers = self.class.default_headers.merge(headers)
+      response = self.class.engine.get(site: uri, headers: merged_headers, params:)
+
+      parse(self, **JSON.parse(response.body))
     end
 
-    def default_headers
-      @default_headers ||= {}
+    def post(headers: {}, params: {}, body: nil)
+      merged_headers = self.class.default_headers.merge(headers)
+      response = self.class.engine.post(site: uri, headers: merged_headers, params:, body:)
+
+      parse(self, **JSON.parse(response.body))
     end
-  end
 
-  def get(headers: {}, params: {})
-    merged_headers = self.class.default_headers.merge(headers)
-    response = self.class.engine.get(site: uri, headers: merged_headers, params:)
+    def put; end
 
-    parse(self, **JSON.parse(response.body))
-  end
+    def delete; end
 
-  def post(headers: {}, params: {}, body: nil)
-    merged_headers = self.class.default_headers.merge(headers)
-    response = self.class.engine.post(site: uri, headers: merged_headers, params:, body:)
+    private
 
-    parse(self, **JSON.parse(response.body))
-  end
-
-  def put
-  end
-
-  def delete
-  end
-
-  private
-
-  def error_class(status)
-    case status
-    when 404
-      ActiveJobject::Request::NotFound
-    when 500
-      ActiveJobject::Request::ServerError
-    else
-      ActiveJobject::Request::Error
+    def error_class(status)
+      case status
+      when 404
+        ActiveJobject::Request::NotFound
+      when 500
+        ActiveJobject::Request::ServerError
+      else
+        ActiveJobject::Request::Error
+      end
     end
   end
 end

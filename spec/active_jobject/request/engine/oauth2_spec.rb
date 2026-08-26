@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
   subject(:klass) { described_class }
 
-  describe "#get" do
+  describe '#get' do
     context 'when the request succeeds' do
       context 'without default_headers' do
         let(:dummy_klass) do
           described_klass = klass
 
           Class.new(ActiveJobject::Base) do
-            self.site = "http://testing-test-tester.test/api/v1/users"
+            self.site = 'http://testing-test-tester.test/api/v1/users'
             self.engine = described_klass
           end
         end
@@ -33,7 +35,7 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
 
         it 'parses the result and returns the class' do
           expect(access_token_double).to receive(:get)
-            .with("/api/v1/users", params: {}, headers: {})
+            .with('/api/v1/users', params: {}, headers: {})
             .and_return(response_double)
 
           result = dummy_instance.get
@@ -59,7 +61,7 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
           described_klass = klass
 
           Class.new(ActiveJobject::Base) do
-            self.site = "http://testing-test-tester.test/api/v1/users"
+            self.site = 'http://testing-test-tester.test/api/v1/users'
             self.engine = described_klass
 
             self.default_headers = { 'Authorization' => 'Bearer TEST_TOKEN' }
@@ -84,7 +86,7 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
 
         it 'parses the result and returns the class' do
           expect(access_token_double).to receive(:get)
-            .with("/api/v1/users", params: {}, headers: { 'Authorization' => 'Bearer TEST_TOKEN' })
+            .with('/api/v1/users', params: {}, headers: { 'Authorization' => 'Bearer TEST_TOKEN' })
             .and_return(response_double)
 
           result = dummy_instance.get
@@ -111,7 +113,7 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
         described_klass = klass
 
         Class.new(ActiveJobject::Base) do
-          self.site = "http://testing-test-tester.test/api/v1/users"
+          self.site = 'http://testing-test-tester.test/api/v1/users'
           self.engine = described_klass
         end
       end
@@ -177,7 +179,7 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
 
       context 'status 42069 (non-standard)' do
         let(:response_double) do
-          instance_double(OAuth2::Response, body: JSON.generate({}), status: 42069)
+          instance_double(OAuth2::Response, body: JSON.generate({}), status: 42_069)
         end
 
         let(:oauth_error) { OAuth2::Error.new(response_double) }
@@ -189,14 +191,14 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
     end
   end
 
-  describe "#post" do
-    context "when the request succeeds" do
+  describe '#post' do
+    context 'when the request succeeds' do
       context 'without default headers' do
         let(:dummy_klass) do
           described_klass = klass
 
           Class.new(ActiveJobject::Base) do
-            self.site = "http://utest.hello/api/v1/users"
+            self.site = 'http://utest.hello/api/v1/users'
             self.engine = described_klass
           end
         end
@@ -221,7 +223,7 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
 
         it 'parses the result and returns the class' do
           expect(access_token_double).to receive(:post)
-            .with("/api/v1/users", body:, params: {}, headers: {})
+            .with('/api/v1/users', body:, params: {}, headers: {})
             .and_return(response_double)
 
           result = dummy_instance.post(body:)
@@ -250,7 +252,7 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
           described_klass = klass
 
           Class.new(ActiveJobject::Base) do
-            self.site = "http://utest.hello/api/v1/users"
+            self.site = 'http://utest.hello/api/v1/users'
             self.engine = described_klass
 
             self.default_headers = { 'Authorization' => 'Bearer TEST_TOKEN' }
@@ -277,7 +279,7 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
 
         it 'parses the result and returns the class' do
           expect(access_token_double).to receive(:post)
-            .with("/api/v1/users", body:, params: {}, headers: { 'Authorization' => 'Bearer TEST_TOKEN' })
+            .with('/api/v1/users', body:, params: {}, headers: { 'Authorization' => 'Bearer TEST_TOKEN' })
             .and_return(response_double)
 
           result = dummy_instance.post(body:)
@@ -307,7 +309,7 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
         described_klass = klass
 
         Class.new(ActiveJobject::Base) do
-          self.site = "http://utest.hello/api/v1/users"
+          self.site = 'http://utest.hello/api/v1/users'
           self.engine = described_klass
         end
       end
@@ -373,7 +375,7 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
 
       context 'status 42069 (non-standard)' do
         let(:response_double) do
-          instance_double(OAuth2::Response, body: JSON.generate({}), status: 42069)
+          instance_double(OAuth2::Response, body: JSON.generate({}), status: 42_069)
         end
 
         let(:oauth_error) { OAuth2::Error.new(response_double) }
@@ -385,35 +387,35 @@ RSpec.describe ActiveJobject::Request::Engine::OAuth2 do
     end
   end
 
-  describe "#deconstruct_uri" do
-    context "HTTPS URL without port" do
+  describe '#deconstruct_uri' do
+    context 'HTTPS URL without port' do
       let(:uri) { URI('https://rescocompany.com/about-us') }
 
-      it "decopules the scheme://host/ and /path" do
+      it 'decopules the scheme://host/ and /path' do
         expect(klass.send(:deconstruct_uri, uri)).to eq(['https://rescocompany.com/', '/about-us'])
       end
     end
 
-    context "HTTPS URL with port" do
+    context 'HTTPS URL with port' do
       let(:uri) { URI('https://rescocompany.com:3030/about-us') }
 
-      it "decopules the scheme://host:port/ and /path" do
+      it 'decopules the scheme://host:port/ and /path' do
         expect(klass.send(:deconstruct_uri, uri)).to eq(['https://rescocompany.com:3030/', '/about-us'])
       end
     end
 
-    context "HTTP URL without port" do
+    context 'HTTP URL without port' do
       let(:uri) { URI('http://192.168.4.20/hello/world/iam/alive') }
 
-      it "decopules the scheme://host/ and /path" do
+      it 'decopules the scheme://host/ and /path' do
         expect(klass.send(:deconstruct_uri, uri)).to eq(['http://192.168.4.20/', '/hello/world/iam/alive'])
       end
     end
 
-    context "HTTPS URL with port" do
+    context 'HTTPS URL with port' do
       let(:uri) { URI('http://10.0.10.10:10210/about-us') }
 
-      it "decopules the scheme://host:port/ and /path" do
+      it 'decopules the scheme://host:port/ and /path' do
         expect(klass.send(:deconstruct_uri, uri)).to eq(['http://10.0.10.10:10210/', '/about-us'])
       end
     end

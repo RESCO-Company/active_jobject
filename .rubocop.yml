@@ -1,7 +1,8 @@
 AllCops:
   TargetRubyVersion: 3.2
+  NewCops: enable
 
-tyle/TrailingCommaInArrayLiteral:
+Style/TrailingCommaInArrayLiteral:
   Enabled: false
 
 Style/TrailingCommaInHashLiteral:
@@ -30,9 +31,6 @@ Layout/LineLength:
 Metrics/MethodLength:
   Max: 20
 
-Rails/FilePath:
-  EnforcedStyle: arguments
-
 Metrics/AbcSize:
   Enabled: false
 
@@ -47,12 +45,14 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
   Enabled: true
 
-Rails/SkipsModelValidations:
-  Enabled: false
-
 Metrics/ParameterLists:
   Max: 12
 
 Layout/SpaceInsideArrayLiteralBrackets:
   EnforcedStyle: no_space
+
+Lint/UnusedBlockArgument:
+  Enabled: true
+  Exclude:
+  - spec/**/*.rb
 

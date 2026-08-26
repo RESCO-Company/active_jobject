@@ -1,34 +1,36 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe ActiveJobject::Base do
   subject(:klass) { described_class }
 
-  describe "#site" do
+  describe '#site' do
     let(:subclass) do
       Class.new(klass) do
         self.site = 'https://iamatest.test'
       end
     end
 
-    it "gets the defined site on class definition" do
+    it 'gets the defined site on class definition' do
       expect(subclass.site).to eq('https://iamatest.test')
     end
   end
 
-  describe "#uri" do
-    context "site defined as String" do
+  describe '#uri' do
+    context 'site defined as String' do
       let(:subclass) do
         Class.new(klass) do
           self.site = 'https://iamatest.test'
         end
       end
 
-      it "gets and converts the site into URI" do
+      it 'gets and converts the site into URI' do
         expect(subclass.new.uri).to eq(URI('https://iamatest.test'))
       end
     end
 
-    context "site defined as URI" do
+    context 'site defined as URI' do
       let(:uri) { URI('https://iamatest.test') }
 
       let(:subclass) do
@@ -39,7 +41,7 @@ RSpec.describe ActiveJobject::Base do
         end
       end
 
-      it "gets the site" do
+      it 'gets the site' do
         expect(subclass.new.uri).to be(uri)
       end
     end
