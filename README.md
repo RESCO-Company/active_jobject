@@ -1,4 +1,5 @@
 # ActiveJobject
+[![Gem Version](https://badge.fury.io/rb/active_jobject.svg?icon=si%3Arubygems)](https://badge.fury.io/rb/active_jobject)
 
 Yes ActiveJobject, as in Active JSON Object (clever I know). This gem is built as a wraper for handling external connections with parsers and authentication built-in. It also supports 
 several HTTP request / gem so you can use your own `engine` or gem that better suits your needs. It also comes packaged with it's own error handling, allowing for more consistent and standard error handling cross-project.
