@@ -1,8 +1,7 @@
 # ActiveJobject
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/active_jobject`. To experiment with that code, run `bin/console` for an interactive prompt.
+Yes ActiveJobject, as in Active JSON Object (clever I know). This gem is built as a wraper for handling external connections with parsers and authentication built-in. It also supports 
+several HTTP request / gem so you can use your own `engine` or gem that better suits your needs. It also comes packaged with it's own error handling, allowing for more consistent and standard error handling cross-project.
 
 ## Installation
 

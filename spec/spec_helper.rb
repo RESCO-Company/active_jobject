@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# Gems
+require "webmock/rspec"
+
+# Lib
 require "active_jobject"
 
 RSpec.configure do |config|
